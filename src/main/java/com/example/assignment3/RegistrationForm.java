@@ -28,6 +28,10 @@ public class RegistrationForm extends Application {
         return matcher.find();
     }
 
+    public static boolean checkPassword(String pw){
+        return pw.length() >= 7;
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
         stage.setTitle("Registration Form");
@@ -60,6 +64,17 @@ public class RegistrationForm extends Application {
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                if(!checkEmail(emailTextField.getText())) {
+                    showAlert(Alert.AlertType.ERROR, grid.getScene().getWindow(),
+                            "Form Error!", "Please enter a valid email");
+                    return;
+                }
+                if(!checkPassword(pwBox.getText())) {
+                    showAlert(Alert.AlertType.ERROR, grid.getScene().getWindow(),
+                            "Form Error!", "Please enter a valid password");
+                    return;
+                }
+
                 showAlert(Alert.AlertType.CONFIRMATION, grid.getScene().getWindow(), "Registration Successful!", "Welcome " + emailTextField.getText());
             }
         });
